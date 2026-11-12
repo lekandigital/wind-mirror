@@ -1,0 +1,58 @@
+{
+ "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.5 Safari/605.1.15",
+ "w": 1557,
+ "h": 1174,
+ "dpr": 1.7000000476837158,
+ "gl": {
+  "float": true,
+  "halfFloat": true,
+  "floatLinear": true,
+  "drawBuffers": 8,
+  "maxTex": 16384,
+  "renderer": "Apple GPU"
+ },
+ "flow": {
+  "ok": true,
+  "grid": [
+   96,
+   56,
+   50
+  ],
+  "cells": 268800,
+  "precision": "float32",
+  "substeps": 8
+ },
+ "fps": 59.58291956305859,
+ "frames": 909,
+ "tracker": {
+  "delegate": "GPU"
+ },
+ "inferMs": 7.401760929880879,
+ "checkMs": 0.9183011414389322,
+ "last": {
+  "t": 15.498545625345201,
+  "kg": 31.04448387145034,
+  "dragArea": 0.644175240056023,
+  "lift": 0.10410680231626569,
+  "side": -0.03840789845146725,
+  "bound": 0.027504302832565566,
+  "sure": true,
+  "signals": [
+   0.007040821022285681,
+   0.13300930595127572,
+   0.019244661761028296,
+   0.001821895646523593,
+   0.23228003362499947,
+   0.014148489174651824
+  ],
+  "area": 0.5728
+ },
+ "verdict": "sure",
+ "vis": {
+  "arms": 0.9561837315559387,
+  "legs": 0.9474104642868042,
+  "all": 0.9474104642868042
+ },
+ "errors": [],
+ "videoTime": 15.55299254202319
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wind Mirror · a thousand positions</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+<style>
+  #grid { position: fixed; inset: 0; width: 100vw; height: 100vh; }
+  #cap { position: fixed; left: 4vw; top: 5vh; z-index: 3; }
+  #cap h2 { margin: 0; font-weight: 200; font-size: clamp(30px, 4.6vw, 68px); letter-spacing: -0.02em; line-height: 1.02; }
+  #cap p { margin: 10px 0 0; font-size: clamp(14px, 1.5vw, 22px); color: var(--ink-soft); }
+  #tally { position: fixed; right: 4vw; top: 5vh; z-index: 3; padding: 16px 22px; font-size: clamp(13px, 1.3vw, 18px); line-height: 1.6; }
+  #tally b { font-weight: 400; font-variant-numeric: tabular-nums; } #tally .o { color: #a85c05; } #tally .g { color: #46521a; }
+  @media (max-aspect-ratio: 1/1) { #tally { left: 4vw; right: auto; top: auto; bottom: 2.5vh; padding: 12px 16px; } }
+</style>
+</head>
+<body>
+<canvas id="grid"></canvas>
+<div id="cap"><h2><span id="n">0</span> positions.<br><span id="t">–</span></h2><p id="sub">each one checked by the learned model, in this tab · checking time, drawing not counted</p></div>
+<section id="tally" class="glass" hidden>
+  <div class="g"><b id="ns">0</b> answered at once</div>
+  <div class="o"><b id="nu">0</b> not sure · sent to the solver</div>
+  <div>the solver alone: <b id="solo">–</b></div>
+</section>
+<script type="module" src="src/thousand.js"></script>
+</body>
+</html>

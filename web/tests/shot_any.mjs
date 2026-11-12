@@ -1,0 +1,11 @@
+import { createRequire } from 'node:module';
+const require = createRequire('/Users/lekan/Dev/posepuppet/package.json');
+const { chromium } = require('playwright');
+const [out, url, W, H, wait] = process.argv.slice(2);
+const browser = await chromium.launch({ headless: true, channel: 'chrome', args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'] });
+const page = await (await browser.newContext({ viewport: { width: +W, height: +H }, deviceScaleFactor: 1 })).newPage();
+page.on('pageerror', (e) => console.log('pageerror', String(e).slice(0, 400)));
+await page.goto(url); await page.waitForTimeout(+wait * 1000);
+await page.screenshot({ path: out });
+console.log(JSON.stringify(await page.evaluate(() => window.__wm)).slice(0, 400));
+await browser.close();

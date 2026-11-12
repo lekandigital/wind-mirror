@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SoarLabs Demo 01: the pitch</title>
+<style>
+:root { --bg:#F6F2E9; --panel:#EFEAE0; --ink:#26281E; --muted:#6E6F62; --line:#D9D3C4; --olive:#5E6E1F; --orange:#E08A1E; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:17px/1.55 "Helvetica Neue",Helvetica,Arial,sans-serif; -webkit-font-smoothing:antialiased; }
+main { max-width:900px; margin:0 auto; padding:44px 20px 90px; }
+h1 { font-weight:300; font-size:44px; line-height:1.1; margin:0 0 10px; letter-spacing:-0.5px; }
+h2 { font-weight:300; font-size:30px; margin:58px 0 12px; padding-top:18px; border-top:1px solid var(--line); }
+h3 { font-weight:500; font-size:18px; margin:30px 0 8px; }
+p { margin:0 0 14px; }
+.byline { color:var(--muted); font-size:15px; margin-bottom:26px; }
+.lead { font-size:21px; line-height:1.45; font-weight:300; }
+.say { font-size:24px; font-weight:300; border-left:3px solid var(--olive); padding:4px 0 4px 16px; margin:20px 0; }
+figure { margin:22px 0; }
+figure img, figure video { width:100%; display:block; border-radius:14px; }
+figcaption { color:var(--muted); font-size:14.5px; margin-top:8px; }
+.row { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.row2 { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+table { border-collapse:collapse; width:100%; margin:14px 0 20px; font-size:15.5px; }
+th { text-align:left; font-weight:500; color:var(--muted); font-size:13.5px; text-transform:uppercase; letter-spacing:0.4px; padding:6px 10px 6px 0; border-bottom:1px solid var(--ink); }
+td { vertical-align:top; padding:9px 10px 9px 0; border-bottom:1px solid var(--line); }
+td.num, th.num { text-align:right; font-variant-numeric:tabular-nums; }
+.tag { display:inline-block; font-size:12.5px; font-weight:500; padding:1px 9px; border-radius:10px; white-space:nowrap; }
+.tag { margin-bottom:2px; } .tag.m { background:var(--olive); color:#fff; } .tag.p { background:transparent; color:var(--ink); border:1px solid var(--ink); } .tag.n { background:var(--orange); color:#221; }
+.tiles { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:18px 0; }
+.tile { background:var(--panel); border-radius:14px; padding:14px 14px 12px; }
+.tile b { display:block; font-weight:300; font-size:32px; line-height:1.1; }
+.tile span { color:var(--muted); font-size:13.5px; line-height:1.3; display:block; margin-top:6px; }
+.box { background:var(--panel); border-radius:14px; padding:16px 18px; margin:18px 0; font-size:15.5px; }
+.box p:last-child { margin-bottom:0; }
+code { font:14px/1.4 Menlo,monospace; background:var(--panel); padding:1px 5px; border-radius:5px; }
+pre { background:#26281E; color:#EFEAE0; padding:14px 16px; border-radius:12px; overflow-x:auto; font:13px/1.5 Menlo,monospace; }
+dl dt { font-weight:500; margin-top:18px; } dl dd { margin:4px 0 0 0; }
+.ideas td:nth-child(2) { white-space:nowrap; font-weight:500; }
+.chart { background:var(--bg); margin:16px 0 6px; }
+details { margin:8px 0 18px; } summary { cursor:pointer; color:var(--muted); font-size:14.5px; }
+nav { font-size:14.5px; color:var(--muted); margin:18px 0 0; } nav a { color:var(--ink); margin-right:12px; }
+code, td, p, li, dd, figcaption { overflow-wrap:anywhere; }
+@media (max-width:640px) { table { display:block; overflow-x:auto; } th[style], td[style] { width:auto !important; } h1 { font-size:34px; } .tiles { grid-template-columns:repeat(2,1fr); } .row { grid-template-columns:1fr; } .row2 { grid-template-columns:1fr; } body { font-size:16px; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Make the Wind Mirror</h1>
+<div class="byline">SoarLabs Demo 01, the pitch · written for Lekan · November 12, 2026 · by Claude Fable 5.2 in Claude Code · ten to twelve minutes to read · folded details and the appendix are for reference</div>
+
+<p class="lead">My recommendation is one demo, which I am calling the <strong>Wind Mirror</strong>. A person stands in front of a webcam and sees the wind around her own body. A small learned model says how hard a 100 km/h wind would push her, about a ten-thousandth of a second after it has her pose. When she moves in a way the model has not seen, it says so on screen, hands the question to a real flow solver, and learns the answer. Then Fable 5.2 uses the same check to find a better position than she did.</p>
+
+<p class="say">"Her webcam is a wind tunnel, and the AI tells you when it's guessing."</p>
+
+<figure>
+<img src="{{img_hero}}" alt="Split screen: the performer turned side-on on the left; on the right a clay figure in the same pose with flow lines around it, the read-out 18 kg and an orange label reading not sure, asking the real solver">
+<figcaption>A real frame from tonight. Left: your performer's clip from June. Right: her pose, tracked from that video, standing in a 3D flow solver. At this moment she has turned side-on, the model's doubt score is over its limit, and its own guess (21 kg) is wrong; the solver says 18 kg. Layout and type are a first sketch.</figcaption>
+</figure>
+
+<div class="box"><p><strong>What was run tonight.</strong> A 3D flow solver, checked against textbook shapes, and 485 runs of it. Two small models with a doubt score built from the three signals in your deck. Your performer's three June clips, tracked and solved. An agent run that designed a body position with the check. The doubt score worked on every test but one; that failure is in section 5. Nothing was posted, deployed or sent, and no money was spent.</p></div>
+
+<nav><a href="#cut">The cut</a><a href="#proves">What it proves</a><a href="#agent">Agent half</a><a href="#alts">Alternatives</a><a href="#feas">Feasibility</a><a href="#plan">Plan</a><a href="#performer">Performer</a><a href="#questions">Your questions</a><a href="#needs">What I need</a></nav>
+
+<section id="cut">
+<h2>1. The demo, and the sixty-second cut</h2>
+<p>Four words I use below. The <strong>twin</strong> is a simple body made of rounded limbs, posed from her 33 tracked points. The <strong>solver</strong> is the slow, real computation of air flowing around the twin. The <strong>check</strong> is the fast learned answer. The <strong>doubt score</strong> is one number that says how far to trust the check; above a limit the question goes to the solver.</p>
+
+<p><strong>Why this one.</strong> It is your product, small and true: the model, the doubt score, the solver behind it, the learning loop and the tool an agent calls all ran tonight. It reads with the sound off, because she moves, the air moves and the number moves in the same frame. It uses the three things you have that the crowded lanes do not: a body tracker, physics, and a person on camera. And in this week's posts nobody shows a design being checked, and nobody shows a model admitting doubt.</p>
+
+<table>
+<thead><tr><th style="width:74px">Time</th><th>On screen</th><th style="width:220px">Exists tonight?</th></tr></thead>
+<tbody>
+<tr><td>0–3 s</td><td>Split screen from the first frame. She stands, full body. Her twin stands in the tunnel with flow lines streaming past. Words: <em>Her webcam is a wind tunnel.</em> Read-out: <strong>26 kg</strong>, wind push at 100 km/h. Olive label: <em>answered by the model · sure</em>.</td><td>Yes. Frames below, from her June clip.</td></tr>
+<tr><td>3–9 s</td><td>She opens her arms: 30 kg, and the wake widens. She folds forward: <strong>16 kg</strong>.</td><td>Yes, same clip. The solver gives 0.55, 0.64 and 0.34 m².</td></tr>
+<tr><td>9–18 s</td><td><strong>The turn.</strong> She does something it has not seen. The label goes orange: <em>not sure · asking the real solver</em>. The model's own guess shows as a ghost, crossed out. A clock runs, labelled <em>solver · 20 s · shown 10×</em>. The solver's number lands.</td><td>Yes. In her second June clip she turns side-on. The model flagged exactly those seconds, and its guess was 22–46% off.</td></tr>
+<tr><td>18–24 s</td><td><em>Learned.</em> She repeats the move. The label is olive and the answer is instant.</td><td>Partly. After two solver runs of the turn the drag is right within about 5%. The whole force is not yet.</td></tr>
+<tr><td>24–34 s</td><td><em>A thousand positions. 47 milliseconds.</em> The floor fills with twins. Most are clay. The ones the model doubts are orange and walk off to the solver. Small print: <em>the solver alone would take five and a half hours.</em></td><td>Measured: 585 answered, 415 sent on. Picture below.</td></tr>
+<tr><td>34–48 s</td><td><em>Fable 5.2 designs. SoarLabs checks.</em> A Claude Code window: one sentence of prompt, then tool calls ticking by: <code>check</code> ×46,000, <code>solve</code> ×14. The twin settles into the position it found. <em>8 kg, verified by the solver.</em></td><td>Yes. I ran it; section 3.</td></tr>
+<tr><td>48–56 s</td><td>She takes that position on camera. The number matches. She laughs.</td><td>Needs the shoot.</td></tr>
+<tr><td>56–60 s</td><td>A plain card of measurements, then the link to try it. One line of small print stays on screen throughout: <em>simple body posed from her joints · simulated tunnel · not a measurement of her</em>.</td><td>Numbers exist. The page to try does not.</td></tr>
+</tbody>
+</table>
+<p>The first 24 seconds stand alone as a short version. These stills are solver output for three moments of her first clip.</p>
+<div class="row">
+<figure><img src="{{img_f0}}" alt="She stands; her twin stands in the flow; read-out 26 kg"><figcaption>Standing: 0.55 m².</figcaption></figure>
+<figure><img src="{{img_f4}}" alt="Arms out; her twin with arms out; read-out 30 kg"><figcaption>Arms out: 0.64 m².</figcaption></figure>
+<figure><img src="{{img_f20}}" alt="Folded forward; her twin folded forward; read-out 16 kg"><figcaption>Folded forward: 0.34 m².</figcaption></figure>
+</div>
+</section>
+
+<section id="proves">
+<h2>2. What it proves about SoarLabs</h2>
+<p>Each claim is one your deck makes or implies. Every number is from a run on your box tonight; the appendix names the files. "Force error" means the error of the whole force (drag, lift and side force together) as a share of the solver's force.</p>
+<table>
+<thead><tr><th style="width:27%">Claim</th><th>Evidence</th><th style="width:118px">Status</th></tr></thead>
+<tbody>
+<tr><td>A learned model answers far faster than a solver.</td><td>Solver: 19.8 s per pose on the RTX 3090 Ti. Check: 47 millionths of a second per pose in a batch of 1,000 on one CPU core, with both models and all three doubt signals. That is about 400,000 times faster. A single pose takes 0.1 ms. Posing and measuring the twin first costs about 7 ms; I did not optimise it.</td><td><span class="tag m">measured</span></td></tr>
+<tr><td>Fast models are confidently wrong about what they have not seen.</td><td>On familiar poses the model's force error is 5.0%. On four kinds of pose left out of training (lying head-first, side-on, back to the wind, upside down) it is 38.9%, worse than a rule of thumb, and nothing in the answer says so.</td><td><span class="tag m">measured</span></td></tr>
+<tr><td>The doubt score knows which answers are wrong.</td><td>Ranked by doubt score, answers more than 10% wrong sit above the rest 99 times in 100 (100 held-out poses). All three signals contribute: distance from training data 0.99, disagreement between the two models 0.98, the physics check 0.97.</td><td><span class="tag m">measured</span></td></tr>
+<tr><td>The gate passes good answers and stops bad ones.</td><td>With a 10% tolerance, 36 of 50 familiar poses were answered instantly at 4.0% mean error (worst 11.7%), and none of the 50 never-seen poses. Of 53 answers that were more than 10% wrong, one got through. With the 5% tolerance I wrote first, the gate did not open at all.</td><td><span class="tag m">measured</span> <span class="tag p">10%, not 5%</span></td></tr>
+<tr><td>Every solver run makes the model better where it was weak.</td><td>Her first clip's 77 solver runs, retrained in 8 seconds, cut the error on ordinary frames of her other two clips from 8.2% to 3.6% and opened the gate for all 19. Six solver runs of a never-seen kind of pose cut its error from 56% to 16% (lying head-first).</td><td><span class="tag m">measured</span></td></tr>
+<tr><td>The gate stays honest while the model learns.</td><td>Not yet. After learning her first clip, my first threshold rule let through 3 of 5 side-on frames that were 17–28% wrong. A stricter rule stops all five, but I wrote it after seeing the failure. Section 5.</td><td><span class="tag n">failed once</span></td></tr>
+<tr><td>An agent can use it to design something.</td><td>I used it to find a low-drag position: 26,000 positions proposed, 46,000 checks, 14 solver runs, under eight minutes. Result: 0.163 m², verified by the solver, about half my own attempt at a ski tuck.</td><td><span class="tag m">measured</span></td></tr>
+<tr><td>It beats the obvious shortcut.</td><td>"Force is frontal area times a constant" gets drag within 4.2% but misses lift and side force: 11.5% force error on familiar poses. The model: 5.0%. On her first clip, before it had learned anything from her, the model only tied the shortcut (9.5% against 9.9%).</td><td><span class="tag m">measured</span></td></tr>
+<tr><td>It runs live in a browser tab.</td><td>Not built. The tracker already runs at 30 frames a second in BodyArcade, and the two models are about 22,000 numbers each.</td><td><span class="tag p">not yet</span></td></tr>
+<tr><td>The answers are right about a real person.</td><td>No. The twin is made of rounded limbs, and the solver was checked against textbook shapes, not against a wind tunnel with a person in it.</td><td><span class="tag n">do not claim</span></td></tr>
+</tbody>
+</table>
+</section>

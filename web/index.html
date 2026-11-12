@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Wind Mirror</title>
+<meta name="theme-color" content="#ece5d6">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="gl"></canvas>
+
+<section id="mirror" class="glass" hidden>
+  <video id="video" playsinline muted></video>
+  <canvas id="bones"></canvas>
+  <div id="mirror-note"></div>
+</section>
+
+<section id="readout" class="glass">
+  <div id="kg"><span id="kg-num">–</span><span id="kg-unit">kg</span></div>
+  <div id="kg-label">wind push at 100 km/h</div>
+  <div id="chip" class="sure"><i></i><span id="chip-text">waiting for a body</span></div>
+  <button id="ask" class="quiet" hidden>ask the real solver</button>
+  <div id="busy"></div>
+  <div id="ledger"></div>
+  <div id="detail">
+    <div><b id="lift">–</b><span>lift</span></div>
+    <div><b id="side">–</b><span>side</span></div>
+    <div><b id="bound">–</b><span>error bound</span></div>
+    <div><b id="ms">–</b><span>to answer</span></div>
+  </div>
+  <div id="runs"></div>
+</section>
+
+<section id="start" class="glass">
+  <h1>Wind Mirror</h1>
+  <p>Stand back so the camera sees all of you. A simple twin of your body stands in a simulated wind tunnel, and a small learned model says how hard a 100 km/h wind would push it. When it has not seen a pose like yours, it says so.</p>
+  <button id="cam-btn">Use my camera</button>
+  <button id="clip-btn" class="quiet">Use a recorded clip</button>
+  <button id="demo-btn" class="quiet">Just watch</button>
+  <input id="clip-file" type="file" accept="video/*" hidden>
+  <p class="fine">The camera picture stays in this tab. Nothing is uploaded.</p>
+</section>
+
+<div id="caption" hidden></div>
+
+<footer id="fine">
+  <span id="fine-a">simple body posed from your joints · simulated tunnel · not a measurement of you</span>
+  <span id="fine-b"></span>
+</footer>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>

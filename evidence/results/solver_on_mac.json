@@ -1,0 +1,21 @@
+{
+ "backend": "Taichi 1.7.4 on Metal, Apple M5",
+ "box_reference": {
+  "standing": 0.72395,
+  "ski_tuck": 0.3221
+ },
+ "results": {
+  "standing": {
+   "drag": 0.7213630305721679,
+   "lift": 0.01877253835872639,
+   "side": 0.0003909306141495827,
+   "seconds": 50.1
+  },
+  "ski_tuck": {
+   "drag": 0.3227211495984678,
+   "lift": 0.09749652011101362,
+   "side": -3.223289447117524e-05,
+   "seconds": 52.8
+  }
+ }
+}

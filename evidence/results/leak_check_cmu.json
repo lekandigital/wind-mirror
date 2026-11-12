@@ -1,0 +1,41 @@
+{
+ "n_test": 500,
+ "n_train_cmu": 715,
+ "exact_duplicates": 0,
+ "same_trial": {
+  "n": 146,
+  "err": 6.02,
+  "sure": 81,
+  "false_sure": 3,
+  "coverage": 88.4
+ },
+ "other_trials": {
+  "n": 354,
+  "err": 5.46,
+  "sure": 269,
+  "false_sure": 9,
+  "coverage": 84.2
+ },
+ "within_1s_of_a_training_pose": {
+  "n": 24,
+  "err": 6.39,
+  "sure": 10,
+  "false_sure": 0,
+  "coverage": 95.8
+ },
+ "within_3s": {
+  "n": 63,
+  "err": 6.71,
+  "sure": 33,
+  "false_sure": 3,
+  "coverage": 88.9
+ },
+ "not_within_3s": {
+  "n": 437,
+  "err": 5.47,
+  "sure": 317,
+  "false_sure": 9,
+  "coverage": 84.9
+ },
+ "same_subject": 425
+}

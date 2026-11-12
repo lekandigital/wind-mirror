@@ -1,0 +1,63 @@
+{
+ "format": "16x9",
+ "ledger": [
+  {
+   "solverKg": 14.79,
+   "modelKg": 14.033687017495627,
+   "errPct": 7.1,
+   "boundPct": 13.3,
+   "sureBefore": false,
+   "solverSeconds": 5.78,
+   "waitSeconds": 18.265,
+   "runs": 1971,
+   "after": {
+    "error_pct": 2.3,
+    "error_bound_pct": 7.2,
+    "sure": true
+   },
+   "videoT": 17.5213
+  },
+  {
+   "solverKg": 21.71,
+   "modelKg": 21.142096478624076,
+   "errPct": 7.1,
+   "boundPct": 10,
+   "sureBefore": false,
+   "solverSeconds": 5.78,
+   "waitSeconds": 10.00030000001192,
+   "runs": 1970,
+   "after": {
+    "error_pct": 2.7,
+    "error_bound_pct": 6.3,
+    "sure": true
+   },
+   "videoT": 16.0047
+  }
+ ],
+ "log": [
+  [
+   "asked",
+   2.74,
+   16.09
+  ],
+  [
+   "answered",
+   12.74
+  ],
+  [
+   "learned",
+   1,
+   12.74
+  ],
+  [
+   "second turn",
+   20.7,
+   "sure"
+  ],
+  [
+   "learned",
+   2,
+   22.5
+  ]
+ ]
+}

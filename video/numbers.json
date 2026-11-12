@@ -1,0 +1,103 @@
+{
+ "solver_seconds": 5.8,
+ "final_pose": {
+  "pose": [
+   [
+    -0.9128,
+    0.0,
+    0.4083
+   ],
+   [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   [
+    0.8607,
+    0.0,
+    0.509
+   ],
+   [
+    -0.7907,
+    0.5425,
+    -0.2836
+   ],
+   [
+    -0.2327,
+    0.0323,
+    -0.972
+   ],
+   [
+    -0.7907,
+    -0.5425,
+    -0.2836
+   ],
+   [
+    -0.2327,
+    -0.0323,
+    -0.972
+   ],
+   [
+    -0.9335,
+    -0.014,
+    -0.3583
+   ],
+   [
+    0.7693,
+    -0.014,
+    -0.6387
+   ],
+   [
+    -0.9335,
+    0.014,
+    -0.3583
+   ],
+   [
+    0.7693,
+    0.014,
+    -0.6387
+   ],
+   [
+    0.0,
+    -1.0,
+    0.0
+   ]
+  ],
+  "body": null
+ },
+ "final_kg": "12",
+ "rows": [
+  [
+   "0.8",
+   "ms",
+   "for the learned model to answer, inside the running page",
+   "Chrome on an Apple M5, one pose, with its error bound; 0.5 ms in plain JavaScript"
+  ],
+  [
+   "5.8",
+   "s",
+   "for the real flow solver it falls back to",
+   "3.67 million cells, RTX 3090 Ti to itself; about 13 s when the GPU is shared"
+  ],
+  [
+   "3\u20136",
+   "%",
+   "force error against that solver, on 924 poses it never trained on",
+   "tracked footage 3.3%, motion capture 5.6%; frontal area \u00d7 fitted constants: 12\u201318%"
+  ],
+  [
+   "3.4",
+   "%",
+   "of its \u201csure\u201d answers were more than 10% wrong",
+   "against 17% of its \u201cnot sure\u201d answers, on 500 motion-capture poses; limit set beforehand: 10%"
+  ],
+  [
+   "12",
+   "runs",
+   "of the solver: the agent's whole budget for the design",
+   "it screened 360,009 positions; the model answered for the 51,874 that met the rules"
+  ]
+ ],
+ "final_kg_exact": "12.0",
+ "base_kg_exact": "34.9"
+}

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wind Mirror cards</title>
+<style>
+  :root { --ink: #24231b; --soft: #6b6654; --olive: #5d6b22; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 300; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  body { background: linear-gradient(118deg, #efe9da 0%, #f3efe4 42%, #ece6d2 70%, #dfe2c0 100%); position: relative; overflow: hidden; }
+  body::after { content: ""; position: absolute; right: -18vmax; bottom: -22vmax; width: 70vmax; height: 70vmax; border-radius: 50%; background: radial-gradient(closest-side, rgba(150, 165, 80, 0.34), rgba(150, 165, 80, 0)); }
+  .card { position: absolute; z-index: 1; left: 9.2vw; top: 50%; transform: translateY(-50%); padding-left: 2.1vw; border-left: 3px solid var(--olive); max-width: 82vw; }
+  .mark { font-size: 9.4vw; letter-spacing: -0.035em; line-height: 0.95; font-weight: 300; }
+  .what { margin-top: 2.6vw; font-size: 2.05vw; color: var(--soft); }
+  .contact { margin-top: 2.6vw; font-size: 3.1vw; display: flex; align-items: center; gap: 3.2vw; flex-wrap: wrap; }
+  .url { color: var(--olive); font-weight: 400; } .x { display: flex; align-items: center; gap: 0.9vw; font-weight: 400; } .x img { height: 2.3vw; }
+  .fine { margin-top: 1.5vw; font-size: 1.5vw; color: #3a382b; }
+  .rows { display: grid; grid-template-columns: auto 1fr; column-gap: 3vw; row-gap: 2.1vw; align-items: baseline; }
+  .rows b { font-weight: 200; font-size: 5.6vw; letter-spacing: -0.03em; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; } .rows b small { font-size: 0.42em; color: var(--soft); letter-spacing: 0; margin-left: 0.3em; }
+  .rows span { font-size: 1.85vw; line-height: 1.3; color: #3a382b; } .rows span i { font-style: normal; color: var(--soft); display: block; font-size: 0.78em; margin-top: 0.2em; }
+  .head { font-size: 2.3vw; color: var(--soft); margin-bottom: 2.6vw; }
+  body.tall .card { left: 8vw; right: 6vw; max-width: none; padding-left: 4.4vw; }
+  body.tall .mark { font-size: 17.5vw; } body.tall .what { font-size: 4.3vw; margin-top: 5vw; } body.tall .contact { font-size: 5.6vw; flex-direction: column; align-items: flex-start; gap: 3vw; margin-top: 6vw; } body.tall .x img { height: 4.2vw; } body.tall .x { gap: 1.8vw; }
+  body.tall .fine { font-size: 3vw; margin-top: 4vw; line-height: 1.4; }
+  body.tall .rows { grid-template-columns: 1fr; row-gap: 0.8vw; } body.tall .rows b { text-align: left; font-size: 10.4vw; margin-top: 2.2vw; } body.tall .rows span { font-size: 3.7vw; } body.tall .head { font-size: 4.2vw; margin-bottom: 1vw; }
+</style>
+</head>
+<body>
+<div class="card" id="card"></div>
+<script>
+const qs = new URLSearchParams(location.search);
+if (innerHeight > innerWidth) document.body.classList.add('tall');
+const N = JSON.parse(qs.get('n') || '{}');
+const card = document.getElementById('card');
+if (qs.get('card') === 'numbers') {
+  card.innerHTML = `<div class="head">measured in this build</div><div class="rows">` + (N.rows || []).map((r) => `<b>${r[0]}<small>${r[1]}</small></b><span>${r[2]}<i>${r[3] || ''}</i></span>`).join('') + `</div>`;
+} else {
+  card.innerHTML = `<div class="mark">wind mirror</div><div class="what">${N.what || 'a physics check that says when it is guessing.'}</div>
+    <div class="contact"><span class="url">${N.url || 'soarlabs.ai/windmirror'}</span><span class="x"><img src="assets/X_logo_2023.svg.webp" alt="X"> @lekanadeyeri</span></div>
+    <div class="fine">${N.fine || 'simple body posed from her joints · simulated tunnel · not a measurement of her'}</div>`;
+}
+window.__ready = true;
+</script>
+</body>
+</html>

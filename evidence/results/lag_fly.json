@@ -1,0 +1,21 @@
+{
+ "name": "fly",
+ "trackedFrames": 697,
+ "medianFrameGapMs": 33,
+ "pageFps": 47.2,
+ "trackerMs": 24,
+ "filterLag": {
+  "left arm": {
+   "lagMs": 33,
+   "movement": 21.29
+  },
+  "right arm": {
+   "lagMs": 33,
+   "movement": 19.1
+  },
+  "torso lean": {
+   "lagMs": 0,
+   "movement": 9.92
+  }
+ }
+}

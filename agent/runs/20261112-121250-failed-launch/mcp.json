@@ -1,0 +1,1 @@
+{"mcpServers": {"windmirror": {"command": "python3", "args": ["/Users/lekan/Dev/wind-mirror/agent/mcp_server.py"], "env": {"WM_RENDER_DIR": "/Users/lekan/Dev/wind-mirror/agent/runs/20261112-121250/renders", "WM_MCP_LOG": "/Users/lekan/Dev/wind-mirror/agent/runs/20261112-121250/mcp_calls.jsonl"}}}}

@@ -1,0 +1,104 @@
+<section id="agent">
+<h2>3. The agent half</h2>
+<p><strong>What an agent can test with it:</strong> any position of a human body in a wind. It gets back the drag, the lift, the side force and a doubt score. When the doubt is high it can ask for the real solver, and the result is added to the model. Three calls:</p>
+<pre>check(poses)   →  for each pose: forces, doubt score, "sure" or "ask the solver"     47 µs each in a batch
+solve(poses)   →  the real flow solver's forces for each pose                          20 s each
+learn(runs)    →  refit both models with those solver runs added                       8 s</pre>
+<p>Tonight these are command-line tools on your box. Putting them behind an MCP server is day one of the build. I used them myself, as the agent, on one design task.</p>
+<div class="box">
+<p><strong>The task:</strong> find the position with the least drag that a person could hold facing the wind, with both feet on the ground, head up, and balanced over the feet. It is the downhill skier's problem.</p>
+<p><strong>Result:</strong> <strong>0.163 m²</strong>, a flat-backed crouch with the arms stretched forward. That is a push of about 8 kg at 100 km/h, against 15 kg for a ski tuck I posed by hand and 26 kg for your performer standing.</p>
+<details><summary>How the run went, step by step</summary>
+<p><strong>Round one.</strong> I wrote a short script that proposed 20,000 positions meeting those rules, and checked them all in one call (0.9 s for the check, 14 s to pose and measure the twins). The model was sure about 5,362. Its best sure answer was 0.250 m². Its best unsure answers were near 0.20. I sent three sure ones and five unsure ones to the solver.</p>
+<p><strong>Learn.</strong> The solver put the best at 0.193 m². I added the eight runs and retrained (8 s). The model was now sure about 12,371 of the same 20,000.</p>
+<p><strong>Round two.</strong> 6,000 refinements near the three best, checked, six sent to the solver. The winner came from this round.</p>
+</details>
+<figure><img src="{{img_winner}}" alt="Side view of the twin in a low crouch, back flat, arms stretched forward, flow lines passing over it"><figcaption>The position the agent found, in the solver. 0.163 m².</figcaption></figure>
+<p><strong>Tally.</strong> 26,000 positions, 46,000 checks, 14 solver runs (4 min 40 s of solver time), 7 min 38 s from start to finish. The solver alone would need six days for those positions. Of the seven "sure" answers I had the solver verify, six were within 10% on drag (mean 5.3%, worst 11.2%). The winner itself was an "unsure" answer: the model said 0.174.</p>
+</div>
+<p><strong>One engine, two doors.</strong> The viral post shows a person standing in the engine. The reply to your investor contact shows an agent calling it: the three tools, a 40-second recording of a run like this one, and the table in section 2. Here is what you asked for, and here it is with a human in the tunnel.</p>
+<p><strong>Why a frontier model driving Blender cannot do this alone.</strong> That was the question from the founder who read your deck. The agent proposed 26,000 positions. A solver needs six days to check them, and the agent cannot tell which of its own guesses to trust. The doubt score can, most of the time.</p>
+</section>
+
+<section id="alts">
+<h2>4. Two alternatives, and why they lost</h2>
+
+<h3>A. The wing agent: "the check Fable can call", with no body in it</h3>
+<p>Fable 5.2 designs a glider wing, a learned model answers where it is sure, a solver takes the rest. It is the most literal answer to your investor contact.</p>
+<p>It lost for two reasons, both tested. First, fast learned airfoil physics with a confidence score is already free: NeuralFoil (open source, MIT licence) answered 1,000 operating points in 2.4 to 4.4 milliseconds on this Mac, and its confidence output fell from 0.98 on a normal airfoil to 0.00 on a mangled one. Your deck's 0.4 ms airfoil model is slower than that. Second, the error is invisible. The nearest post to this idea, an agent re-solving AI videos with a real solver, got 383,000 views and 185 likes, because a wrong pendulum and a right one look the same on a phone. It is still the right second demo, on the same three tools.</p>
+
+<h3>B. Seven hundred muscles: she moves, and a simulated human with real muscles moves with her</h3>
+<figure><img src="{{img_muscle}}" alt="Three frames: a muscle-covered figure raising its arms beside a blue reference figure, drifting away from it, then stumbling"><figcaption>Tonight's test. Blue is your performer's motion from the June clip. Red is the 700-muscle body trying to follow it under real physics. It raises its arms, shuffles away from her, and stumbles when she tilts.</figcaption></figure>
+<p>The open-source stack runs on your box, and on the walking clip it ships with it is impressive. On her clip it follows for 6.0 of 25.6 seconds; with the authors' refinement step, 7.5 seconds. The released controller was trained on 974 clips, and every one is walking or turning.</p>
+<p>Fixing that means training a new controller on motion data licensed for non-commercial research only: four to seven days by my estimate, with a real chance of no usable shot, to showcase another lab's work. Replaying her motion on the muscle body with no physics works today, but that is an overlay, and the first reply would be "is it real?".</p>
+
+<h3>Dropped earlier: cloth that knows when it is wrong</h3>
+<p>Your cloth models are a flat sheet, trusted for 19 of 200 frames, with no body in the scene. And a cloth solver of that kind already runs in real time, so a learned model saves nothing there. The Wind Mirror keeps the idea in a setting where the solver really is 400,000 times slower.</p>
+</section>
+
+<section id="feas">
+<h2>5. Feasibility: what I ran, what happened, what is still risky</h2>
+
+<div class="tiles">
+<div class="tile"><b>485</b><span>solver runs, about 20 s each, 3.67 million cells</span></div>
+<div class="tile"><b>47 µs</b><span>per check on one CPU core, with both models and all three doubt signals</span></div>
+<div class="tile"><b>72%</b><span>of familiar poses answered instantly, at 4.0% mean error</span></div>
+<div class="tile"><b>1 of 53</b><span>answers more than 10% wrong that got past the gate (0 of 50 never-seen poses)</span></div>
+</div>
+
+<h3>The solver</h3>
+<p>I wrote a 3D flow solver for the GPU and checked it on shapes with textbook answers before putting a body in it. Sharp-edged shapes agree within about 5%; a smooth sphere reads about 20% high, so absolute numbers for the twin carry that caveat.</p>
+<details><summary>The check against textbook shapes</summary>
+
+<p>A standing twin comes out at a drag coefficient of 1.21; a physics reference gives 1.0 to 1.3 for a standing person. The method is lattice-Boltzmann, 3.67 million cells.</p>
+<table>
+<thead><tr><th>Shape</th><th class="num">Solver</th><th class="num">Textbook</th></tr></thead>
+<tbody>
+<tr><td>Cube</td><td class="num">1.07</td><td class="num">1.05</td></tr>
+<tr><td>Square plate</td><td class="num">1.12</td><td class="num">1.17</td></tr>
+<tr><td>Long cylinder</td><td class="num">1.19</td><td class="num">1.0–1.2</td></tr>
+<tr><td>Sphere</td><td class="num">0.54</td><td class="num">0.40–0.47</td></tr>
+<tr><td>Standing person</td><td class="num">1.21</td><td class="num">1.0–1.3</td></tr>
+</tbody>
+</table>
+
+</details>
+
+<h3>The trust layer, which was the hard part</h3>
+<p>Two small networks turn a pose into three forces. They were trained on 150 solver runs of random poses: people standing, tucked or spread, roughly facing the wind. The doubt score is the largest of three signals: how much the two networks disagree, how far the pose sits from the training poses, and a physics check (a mirror-image pose must give the mirror-image force). Its limit was set on 50 poses kept aside, then tested on 50 more familiar poses and 50 from four families the model never saw.</p>
+<div class="chart">{{svg_scatter}}</div>
+<p>Each mark is one held-out pose. Every never-seen pose (orange) is more than 10% wrong, and every one sits right of the line, so it goes to the solver. Of the familiar poses (olive), 36 sit left of the line and are answered at once.</p>
+<p>One limit: I first set the gate to keep answers within 5% of the solver, and at that setting it never opened. The doubt score separates "badly wrong" from "fine", but it cannot yet tell a 3% error from an 8% one. The 10% tolerance was chosen after seeing that. More data helps: the error fell from 11.1% with 25 training runs to 5.0% with 150.</p>
+<details><summary>The same result as a table</summary>{{gate_table}}</details>
+
+<h3>Her clips, and the one failure</h3>
+<p>These poses come from a real person through a real tracker, so this is the test that matters. The chart is her second June clip, checked on all 572 frames after the model had learned from her first clip.</p>
+<div class="chart">{{svg_clip}}</div>
+<p>The two shaded bands are the two times she turns side-on. The model flags them, and it is right to: its drag there is 15–22% off. Everywhere else it tracks the solver.</p>
+<table>
+<thead><tr><th>Her two held-out clips (24 solver frames)</th><th class="num">Ordinary frames (19)</th><th class="num">Side-on frames (5)</th></tr></thead>
+<tbody>
+<tr><td>Model trained on random poses only</td><td class="num">8.2% error · 9 answered</td><td class="num">32% error · 0 answered</td></tr>
+<tr><td>After learning her first clip (77 solver runs), first threshold rule</td><td class="num">3.6% error · 19 answered</td><td class="num">30% error · <strong>3 answered</strong></td></tr>
+<tr><td>Same model, stricter rule</td><td class="num">3.6% error · 19 answered</td><td class="num">30% error · 0 answered</td></tr>
+</tbody>
+</table>
+<p><strong>The failure is the middle row.</strong> Once her frontal poses were in the training data, the side-on frames looked less unfamiliar, the threshold loosened, and three wrong answers (17–28% off) went out labelled "sure". The stricter rule never answers a pose more doubtful than nine in ten familiar poses, and it stops all five. I wrote it after seeing the failure, so it has not had a fresh test. Your brief calls calibrated doubt on unseen shapes "unsolved, and the number I expect to fight for". Tonight agrees, and shows where the fight is.</p>
+<p>After two solver runs of the turn, drag on the other three side-on frames went from 20% off to 4% off, but the whole force was still 16% off. "Learned" in the cut needs more than two runs.</p>
+
+<h3>A thousand at once</h3>
+<figure><img src="{{img_grid}}" alt="Rows of figures in different poses on a pale floor; clay-coloured ones stand on olive discs, orange ones on orange discs"><figcaption>144 of the thousand random positions checked in 47 ms. Clay figures on olive discs: answered by the model. Orange: sent to the solver. Of the thousand, 585 were answered and 415 sent on, including all 125 from the never-seen families.</figcaption></figure>
+
+<h3>What is still risky</h3>
+<ul>
+<li><strong>The gate while the model learns.</strong> It failed once tonight, on the only real never-seen move I had. It needs calibration on real tracked poses and a fresh test before a "sure" label goes out in public.</li>
+<li><strong>The twin is crude.</strong> Rounded limbs, one body size. A viewer may read it as a toy.</li>
+<li><strong>The frame is not yet designed for a phone.</strong> The twin is too small and the flow lines too fine.</li>
+<li><strong>The page people try needs a solver behind it.</strong> One GPU serves three solver runs a minute, so it needs a queue and an honest wait time.</li>
+<li><strong>Tracking.</strong> Her legs were poorly seen in the June clips. The shoot needs her whole body against a plain wall.</li>
+<li><strong>The moment.</strong> The earliest posting date is about November 18, nine days after the launch.</li>
+</ul>
+
+<h3>Honest odds</h3>
+<p>These are judgements. Engine, agent tools and a page to try working by November 15: about 80%. The gate passing a fresh test on real footage by then: about 60%. A stranger understanding the cut in two seconds, after one round of redesign: about 70%. A technical investor filing it under "new and serious": about 70%. The post passing 100,000 views: perhaps 20%; a million, a few percent. The investor value does not depend on the reach.</p>
+</section>

@@ -1,0 +1,53 @@
+{
+ "model": "claude-fable-5-2",
+ "tool_calls": {
+  "status": 1,
+  "check": 1,
+  "search": 5,
+  "solve": 10,
+  "learn": 2
+ },
+ "duration_ms": 436889,
+ "duration_api_ms": 84998,
+ "num_turns": 20,
+ "total_cost_usd": 1.0320556,
+ "is_error": true,
+ "usage": {
+  "input_tokens": 16,
+  "cache_creation_input_tokens": 42880,
+  "cache_read_input_tokens": 162310,
+  "output_tokens": 7830,
+  "output_tokens_details": {
+   "thinking_tokens": 3654
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 42880,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 2,
+    "output_tokens": 1103,
+    "cache_read_input_tokens": 33134,
+    "cache_creation_input_tokens": 9746,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 9746
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null
+ },
+ "solver_runs": 10,
+ "solver_seconds": 129.7,
+ "bodies_screened": 130001,
+ "tool_seconds": 365.6
+}

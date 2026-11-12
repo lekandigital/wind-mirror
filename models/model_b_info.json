@@ -1,0 +1,71 @@
+{
+ "sha256": "22622ce2aa575f0089aab6eae0460a619205252485e1e5a1e108a95f3ad898eb",
+ "n_factory": 1969,
+ "n_all": 2325,
+ "families": {
+  "bend": 45,
+  "cmu:cartwheel/acrobatics": 44,
+  "cmu:climb": 36,
+  "cmu:crawl/floor": 34,
+  "cmu:dance": 132,
+  "cmu:interaction": 18,
+  "cmu:jump": 15,
+  "cmu:other": 177,
+  "cmu:run": 7,
+  "cmu:sit": 7,
+  "cmu:sports": 118,
+  "cmu:walk": 54,
+  "cmu_inverted": 39,
+  "cmu_low": 34,
+  "inverted": 40,
+  "move": 177,
+  "prone": 47,
+  "squat": 77,
+  "stand": 249,
+  "stride": 59,
+  "supine": 19,
+  "trk:fly": 48,
+  "trk:fx_arms_tpose": 61,
+  "trk:fx_crouch_stand": 50,
+  "trk:fx_lean_lr": 60,
+  "trk:puppet": 46,
+  "tuck": 215,
+  "turn": 232,
+  "twist": 54,
+  "wide": 131
+ },
+ "never": [
+  "prone",
+  "supine",
+  "inverted",
+  "cmu_low",
+  "cmu_inverted",
+  "move"
+ ],
+ "kriging": {
+  "ell": 5.0,
+  "noise": 0.3,
+  "k": 40
+ },
+ "doubt_w": [
+  0.0035666453577842118,
+  0.0,
+  0.13164557660798742,
+  0.11696100904873502,
+  1.1779989625015108,
+  0.4342808605527985,
+  -0.022450456659938407
+ ],
+ "doubt_q": 1.631357944087026,
+ "doubt_s0": 0.015,
+ "tol": 0.1,
+ "alpha": 0.1,
+ "sources": [
+  "../../out/pitch/poses_v1.jsonl",
+  "../../out/v2/synth_a/runs.jsonl",
+  "../../out/v2/cmu_div/runs.jsonl",
+  "../../out/v2/trk_dev/runs.jsonl"
+ ],
+ "seconds": 169.3,
+ "cv_err_pct": 4.302223045176671
+}

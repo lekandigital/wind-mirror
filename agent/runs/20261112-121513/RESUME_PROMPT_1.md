@@ -1,0 +1,1 @@
+Your session was cut off here by a usage limit; nothing else has changed. The engine still holds the factory model (nothing has been taught yet). run0001, the standing baseline, is solved and not yet taught. You have used 1 of your 12 solver runs. Continue the task from where you stopped and finish it.

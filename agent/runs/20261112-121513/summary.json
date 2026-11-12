@@ -1,0 +1,24 @@
+{
+ "model": "claude-fable-5-2",
+ "tool_calls": {
+  "status": 1,
+  "check": 3,
+  "search": 12,
+  "solve": 12,
+  "learn": 5,
+  "render": 1,
+  "Read": 1
+ },
+ "parts": 2,
+ "is_error": false,
+ "duration_ms": 874481,
+ "duration_api_ms": 255461,
+ "num_turns": 37,
+ "total_cost_usd": 3.6941,
+ "output_tokens": 22217,
+ "input_tokens_incl_cache": 1065430,
+ "solver_runs": 12,
+ "solver_seconds": 207.7,
+ "bodies_screened": 360009,
+ "tool_seconds": 705.1
+}

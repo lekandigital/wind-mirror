@@ -1,0 +1,1 @@
+{"model_version": 8, "runs_in_model": 1981, "factory_runs": 1969, "learned_runs": 12, "tolerance_pct": 10.0, "conformal_factor": 1.631, "kriging": {"ell": 5.0, "noise": 0.3, "k": 40}, "signals": ["lev", "knn", "dis", "par", "gsd", "loc"], "kg_per_m2_at_100kmh": 48.193, "solver_queue": 0}
